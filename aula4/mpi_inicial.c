@@ -3,7 +3,7 @@
 #include <mpi.h>
 
 // mpicc primeiro_mpi.c -o mpi.exe
-// mpirun --hostfile hostfile -np 10 mpi.exe
+// mpirun --hostfile hostfile -np 15 mpi.exe
 // export OMPI_MCA_btl=self,tcp
 
 int main(int argc, char** argv){
@@ -36,7 +36,6 @@ int main(int argc, char** argv){
     }
 
     if(meu_rank != 0){
-        sprintf(msg, "Processo %d está calculando!", meu_rank);
         destino = 0;
         MPI_Send(matriz_c[meu_rank], sizeof(int)*N + 1, MPI_INT, destino, tag, MPI_COMM_WORLD);
     }else{
