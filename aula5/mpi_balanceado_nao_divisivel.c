@@ -10,7 +10,7 @@ int main(int argc, char** argv){
     int meu_rank, np, origem, destino, tag=0;
     char msg[100];
     
-    int N = 3;
+    int N = 10;
 
     int matriz_a[N][N], matriz_b[N][N], matriz_c[N][N];
 
@@ -18,8 +18,8 @@ int main(int argc, char** argv){
 
     for(i = 0; i < N; i++){
 		for(j = 0; j < N; j++){
-			matriz_a[i][j] = i * j;
-			matriz_b[i][j] = i * j;
+			matriz_a[i][j] = 1;
+			matriz_b[i][j] = 1;
             matriz_c[i][j] = 0;
 		}
 	}
@@ -29,7 +29,7 @@ int main(int argc, char** argv){
     MPI_Comm_rank(MPI_COMM_WORLD, &meu_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &np);
 
-    for(i = meu_rank * N / np; i < (N / np) * (meu_rank + 1); i++){
+    for(i = meu_rank; i < N; i+=np){
         for(j = 0; j < N; j++){
             for(k = 0; k < N; k++){
                 matriz_c[i][j] = matriz_c[i][j] + matriz_a[i][k] * matriz_b[k][j];
@@ -39,16 +39,29 @@ int main(int argc, char** argv){
 
     if(meu_rank != 0){
         destino = 0;
-        for(i = meu_rank * N / np; i < (N / np) * (meu_rank + 1); i++){
-            MPI_Send(matriz_c[i], sizeof(int)*N + 1, MPI_INT, destino, tag, MPI_COMM_WORLD);
+        for(i = meu_rank; i < N; i+=np){
+            MPI_Send(matriz_c[i], N + 1, MPI_INT, destino, tag, MPI_COMM_WORLD);
         }
     }else{
         for(origem=1; origem < np; origem++){
-            for(i = origem * N / np; i < (N / np) * (origem + 1); i++){
-                MPI_Recv(matriz_c[i], sizeof(int)*N+1, MPI_INT, MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status);
+            for(i = origem; i < N; i+=np){
+                MPI_Recv(matriz_c[i], N + 1, MPI_INT, MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status);
             }
         }
-        printf("A:\n");
+        for(i = 0; i < N; i++){
+            for(j = 0; j < N; j++){
+                printf("%d ", matriz_a[i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+        for(i = 0; i < N; i++){
+            for(j = 0; j < N; j++){
+                printf("%d ", matriz_b[i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
         for(i = 0; i < N; i++){
             for(j = 0; j < N; j++){
                 printf("%d ", matriz_c[i][j]);
