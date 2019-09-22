@@ -31,7 +31,7 @@ int main(int argc, char** argv){
     for(j = 0; j < N; j++){
         matriz_c[meu_rank][j] = 0;
         for(k = 0; k < N; k++){
-            matriz_c[meu_rank][j] = matriz_c[meu_rank][j] + matriz_a[meu_rank][j] * matriz_b[k][j];
+            matriz_c[meu_rank][j] = matriz_c[meu_rank][j] + matriz_a[meu_rank][k] * matriz_b[k][j];
         }
     }
 

@@ -32,7 +32,7 @@ int main(int argc, char** argv){
         for(j = 0; j < N; j++){
             matriz_c[i][j] = 0;
             for(k = 0; k < N; k++){
-                matriz_c[i][j] = matriz_c[i][j] + matriz_a[i][j] * matriz_b[k][j];
+                matriz_c[i][j] = matriz_c[i][j] + matriz_a[i][k] * matriz_b[k][j];
             }
         }
     }
