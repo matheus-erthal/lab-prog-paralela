@@ -6,6 +6,9 @@
 // mpirun --hostfile hostfile -np 15 mpi.exe
 // export OMPI_MCA_btl=self,tcp
 
+// supress warning
+// export OMPI_MCA_btl=^openib
+
 int main(int argc, char** argv){
     int meu_rank, np, origem, destino, tag=0;
     char msg[100];
