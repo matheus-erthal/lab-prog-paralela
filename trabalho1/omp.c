@@ -1,12 +1,16 @@
 #include <string.h>
 #include <stdio.h>
 #include <omp.h>
+#include <time.h>
 
 int main(){
 
+	clock_t tempo;
+	tempo = clock();
+
 	omp_set_num_threads(4);
 
-	int N = 500;
+	int N = 100;
 
 	int i, j, k;
 
@@ -37,7 +41,9 @@ int main(){
 	}
 	for(i = 0; i < N; i++){
 		for(j = 0; j < N; j++){
-			printf("%d\n", matriz_c[i][j]);
-		}	
+			printf("%d ", matriz_c[i][j]);
+		}
+		printf("\n");
 	}
+	printf("Tempo de execução: %f\n",(clock() - tempo) / (double)CLOCKS_PER_SEC);
 }
