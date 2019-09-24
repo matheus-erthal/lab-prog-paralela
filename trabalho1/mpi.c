@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <mpi.h>
+#include <time.h>
 
 // mpicc primeiro_mpi.c -o mpi.exe
 // mpirun --hostfile hostfile -np 15 mpi.exe
 // export OMPI_MCA_btl=self,tcp
 
 int main(int argc, char** argv){
+
+    clock_t tempo;
+	tempo = clock();
+
     int meu_rank, np, origem, destino, tag=0;
-    char msg[100];
     
-    int N = 10;
+    int N = 100;
 
     int matriz_a[N][N], matriz_b[N][N], matriz_c[N][N];
 
@@ -50,26 +54,15 @@ int main(int argc, char** argv){
         }
         for(i = 0; i < N; i++){
             for(j = 0; j < N; j++){
-                printf("%d ", matriz_a[i][j]);
-            }
-            printf("\n");
-        }
-        printf("\n");
-        for(i = 0; i < N; i++){
-            for(j = 0; j < N; j++){
-                printf("%d ", matriz_b[i][j]);
-            }
-            printf("\n");
-        }
-        printf("\n");
-        for(i = 0; i < N; i++){
-            for(j = 0; j < N; j++){
                 printf("%d ", matriz_c[i][j]);
             }
             printf("\n");
         }
-        printf("\n");
     }
+
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    printf("Tempo de execução do processo %d: %f\n", meu_rank, (clock() - tempo) / (double)CLOCKS_PER_SEC);
 
     MPI_Finalize();
 
