@@ -2,6 +2,7 @@
 #include <string.h>
 #include <mpi.h>
 #include <omp.h>
+#include <time.h>
 
 // mpicc primeiro_mpi.c -o mpi.exe
 // mpirun --hostfile hostfile -np 15 mpi.exe
@@ -9,10 +10,12 @@
 
 int main(int argc, char** argv){
 
-    // omp_set_num_threads(4);
+    clock_t tempo;
+	tempo = clock();
+
+    omp_set_num_threads(2);
 
     int meu_rank, np, origem, destino, tag=0;
-    char msg[100];
     
     int N = 100;
 
@@ -65,6 +68,11 @@ int main(int argc, char** argv){
         }
         printf("\n");
     }
+
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    printf("Tempo de execução do processo %d: %f\n", meu_rank, (clock() - tempo) / (double)CLOCKS_PER_SEC);
+
 
     MPI_Finalize();
 
