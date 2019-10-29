@@ -24,15 +24,14 @@ void main(int argc, char** argv) {
     
     integral = 0;
     
+    // soma os valores associados
     #pragma omp parallel for reduction(+:integral)
     for(int i=1; i < num_trap; i++) {
         integral += (i/(double)num_trap)*(i/(double)num_trap);
-        //printf("Integral %f, thread %d\n", integral, omp_get_thread_num());
     }
     integral = integral * 1.0/num_trap;
     integral += 1.0/(2*num_trap);
     
-    //integral *= h;
     total = integral;
     printf("Valor da integral: %f\n", total);
             t = clock() - t; 
@@ -44,7 +43,7 @@ void main(int argc, char** argv) {
 float calcula(float local_a, float local_b, int local_n, float h) {
     float integral;
     float x;
-    float f(float x); // função a integrar
+    float f(float x);
     int i;
     integral = 0;
     x = 0;

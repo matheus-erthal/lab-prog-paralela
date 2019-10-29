@@ -57,7 +57,7 @@ float calcula(float local_a, float local_b, int local_n, float h) {
     float integral;
     float x,
     i;
-    float f(float x); // função a integrar
+    float f(float x);
     integral = (f(local_a) + f(local_b)) / 2.0;
     x = local_a;
     for (i = 1; i <= local_n; i ++) {
@@ -70,7 +70,6 @@ float calcula(float local_a, float local_b, int local_n, float h) {
 
 float f(float x) {
     float fx;
-    // função quadrática
     fx = x * x;
     return fx;
 }
