@@ -2,21 +2,19 @@
 #include <mpi.h>
 #include <time.h> 
 
-// Em parceria com o amigo DY
-
 int main(int argc, char ** argv) {
     int my_rank;
-    int p; // número de processos
-    float a = 0.0, b = 1.0; // intervalo a calcular
-    int n = 1024; // número de trapezóides
-    float h; // base do trapezóide
-    float local_a, local_b; // intervalo local
-    int local_n; // número de trapezóides local
-    float integral; // integral no meu intervalo
-    float total; // integral total
-    int source; // remetente da integral
-    int dest = 0; // destino das integrais (nó 0)
-    int tag = 200; // tipo de mensagem (único)
+    int p; 
+    float a = 0.0, b = 1.
+    int n = 1024;
+    float h;
+    float local_a, local_b;
+    int local_n;
+    float integral;
+    float total;
+    int source;
+    int dest = 0;
+    int tag = 50;
     MPI_Status status;
 
     clock_t t; 
@@ -33,7 +31,7 @@ int main(int argc, char ** argv) {
     int resto = n%p;
     if(my_rank < resto){
         local_n++;
-        local_a = local_a = a + my_rank * local_n * h;
+        local_a = a + my_rank * local_n * h;
     }
     else{
         local_a = a + (resto * (local_n+1) * h) + (my_rank - resto) * local_n * h;

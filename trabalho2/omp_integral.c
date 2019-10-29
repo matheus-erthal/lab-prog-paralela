@@ -2,21 +2,19 @@
 #include <omp.h>
 #include <time.h> 
 
-// Em parceria com o amigo DY
-
 void main(int argc, char** argv) {
     int my_rank;
-    int num_processos; // número de processos
-    float a=0.0, b=1.0; // intervalo a calcular
-    int num_trap=1024; // número de trapezóides
-    float h; // base do trapezóide
-    float local_a, local_b; // intervalo local
-    int local_n; // número de trapezóides local
-    double integral; // integral no meu intervalo
-    float total; // integral total
-    int source; // remetente da integral
-    int dest=0; // destino das integrais (nó 0)
-    int tag=200; // tipo de mensagem (único)
+    int num_processos;
+    float a=0.0, b=1.0;
+    int num_trap=1024;
+    float h;
+    float local_a, local_b;
+    int local_n;
+    double integral;
+    float total;
+    int source;
+    int dest=0;
+    int tag=200;
     float calcula(float local_a, float local_b, int local_n, float h);
     int resto;
         clock_t t; 
