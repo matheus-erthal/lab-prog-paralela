@@ -3,6 +3,9 @@
 #include <time.h> 
 
 void main(int argc, char** argv) {
+
+    omp_set_num_threads(5);
+
     int my_rank;
     int num_processos;
     float a=0.0, b=1.0;

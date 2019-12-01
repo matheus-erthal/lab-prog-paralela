@@ -5,7 +5,7 @@
 int main(int argc, char ** argv) {
     int my_rank;
     int p; 
-    float a = 0.0, b = 1.
+    float a = 0.0, b = 1.0;
     int n = 1024;
     float h;
     float local_a, local_b;
